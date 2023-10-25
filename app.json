@@ -23,6 +23,7 @@
         },
         "android": {
             "package": "com.rajarsheechatterjee.shigoto",
+            
             "versionCode": 10,
             "useNextNotificationsApi": true
         },

@@ -1,185 +1,186 @@
-import firebase from "../../firebaseConfig";
-import "firebase/firestore";
-import { Alert } from "react-native";
+// import firebase from 'firebase/app';
 
-export const auth = firebase.auth();
+// import "firebase/firestore";
+// import { Alert } from "react-native";
 
-export const loginUser = (email, password) => {
-    auth.signInWithEmailAndPassword(email, password).catch((error) => {
-        Alert.alert(error.message);
-    });
-};
+// export const auth = firebase.auth();
 
-export const signupUser = (email, password) => {
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            const userUid = firebase.auth().currentUser.uid;
+// export const loginUser = (email, password) => {
+//     auth.signInWithEmailAndPassword(email, password).catch((error) => {
+//         Alert.alert(error.message);
+//     });
+// };
 
-            firebase.firestore().collection("users").doc(userUid).set({
-                userUid: userUid,
-                userEmail: email,
-            });
-        })
-        .catch((error) => {
-            Alert.alert(error.message);
-        });
-};
+// export const signupUser = (email, password) => {
+//     auth.createUserWithEmailAndPassword(email, password)
+//         .then(() => {
+//             const userUid = firebase.auth().currentUser.uid;
 
-export const logout = () => auth.signOut();
+//             firebase.firestore().collection("users").doc(userUid).set({
+//                 userUid: userUid,
+//                 userEmail: email,
+//             });
+//         })
+//         .catch((error) => {
+//             Alert.alert(error.message);
+//         });
+// };
 
-export const passwordReset = (email) => auth.sendPasswordResetEmail(email);
+// export const logout = () => auth.signOut();
 
-export const addTask = async (
-    navigation,
-    taskTitle,
-    taskTime,
-    taskContent,
-    priorityIs,
-    collaborators,
-    isCompleted = false,
-    isUpdated = false
-) => {
-    const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
+// export const passwordReset = (email) => auth.sendPasswordResetEmail(email);
 
-    await firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("tasks")
-        .add({
-            userId: firebase.auth().currentUser.uid,
-            taskTitle: taskTitle,
-            taskTime: taskTime,
-            taskContent: taskContent,
-            createdAt: timeStamp,
-            priorityIs: priorityIs,
-            collaborators: collaborators,
-            isCompleted: isCompleted,
-            isUpdated: isUpdated,
-        })
-        .catch((error) => console.log(error));
+// export const addTask = async (
+//     navigation,
+//     taskTitle,
+//     taskTime,
+//     taskContent,
+//     priorityIs,
+//     collaborators,
+//     isCompleted = false,
+//     isUpdated = false
+// ) => {
+//     const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
 
-    navigation.navigate("Your Tasks");
-};
+//     await firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .collection("tasks")
+//         .add({
+//             userId: firebase.auth().currentUser.uid,
+//             taskTitle: taskTitle,
+//             taskTime: taskTime,
+//             taskContent: taskContent,
+//             createdAt: timeStamp,
+//             priorityIs: priorityIs,
+//             collaborators: collaborators,
+//             isCompleted: isCompleted,
+//             isUpdated: isUpdated,
+//         })
+//         .catch((error) => console.log(error));
 
-export const addSampleData = async (navigation) => {
-    const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
-    const dummyData = {
-        userId: firebase.auth().currentUser.uid,
-        taskTitle: "Task Title",
-        taskTime: timeStamp,
-        taskContent: "Task Content",
-        createdAt: timeStamp,
-        priorityIs: 2,
-        collaborators: ["abc@gmail.com"],
-        isCompleted: false,
-        isUpdated: false,
-    };
+//     navigation.navigate("Your Tasks");
+// };
 
-    await firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("tasks")
-        .add(dummyData)
-        .catch((error) => console.log(error));
+// export const addSampleData = async (navigation) => {
+//     const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
+//     const dummyData = {
+//         userId: firebase.auth().currentUser.uid,
+//         taskTitle: "Task Title",
+//         taskTime: timeStamp,
+//         taskContent: "Task Content",
+//         createdAt: timeStamp,
+//         priorityIs: 2,
+//         collaborators: ["abc@gmail.com"],
+//         isCompleted: false,
+//         isUpdated: false,
+//     };
 
-    navigation.navigate("Your Tasks");
-};
+//     await firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .collection("tasks")
+//         .add(dummyData)
+//         .catch((error) => console.log(error));
 
-export const updateTask = async (
-    navigation,
-    id,
-    taskTitle,
-    taskTime,
-    taskContent,
-    taskPriority,
-    collaborators,
-    isCompleted
-) => {
-    const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
+//     navigation.navigate("Your Tasks");
+// };
 
-    await firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("tasks")
-        .doc(id)
-        .update({
-            userId: firebase.auth().currentUser.uid,
-            taskTitle: taskTitle,
-            taskTime: taskTime,
-            taskContent: taskContent,
-            createdAt: timeStamp,
-            priorityIs: taskPriority,
-            collaborators: collaborators,
-            isCompleted: isCompleted,
-            isUpdated: true,
-        })
-        .catch((error) => console.log(error));
+// export const updateTask = async (
+//     navigation,
+//     id,
+//     taskTitle,
+//     taskTime,
+//     taskContent,
+//     taskPriority,
+//     collaborators,
+//     isCompleted
+// ) => {
+//     const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
 
-    navigation.navigate("Your Tasks");
-};
+//     await firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .collection("tasks")
+//         .doc(id)
+//         .update({
+//             userId: firebase.auth().currentUser.uid,
+//             taskTitle: taskTitle,
+//             taskTime: taskTime,
+//             taskContent: taskContent,
+//             createdAt: timeStamp,
+//             priorityIs: taskPriority,
+//             collaborators: collaborators,
+//             isCompleted: isCompleted,
+//             isUpdated: true,
+//         })
+//         .catch((error) => console.log(error));
 
-export const deleteTask = async (navigation, id) => {
-    await firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("tasks")
-        .doc(id)
-        .delete();
+//     navigation.navigate("Your Tasks");
+// };
 
-    navigation.navigate("Your Tasks");
-};
+// export const deleteTask = async (navigation, id) => {
+//     await firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .collection("tasks")
+//         .doc(id)
+//         .delete();
 
-export const updateCompleted = async (isCompleted, taskId) => {
-    const dbRef = firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("tasks");
+//     navigation.navigate("Your Tasks");
+// };
 
-    dbRef.doc(taskId).update({ isCompleted: !isCompleted });
-};
+// export const updateCompleted = async (isCompleted, taskId) => {
+//     const dbRef = firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .collection("tasks");
 
-export const deleteUser = async (navigation) => {
-    const user = firebase.auth().currentUser;
+//     dbRef.doc(taskId).update({ isCompleted: !isCompleted });
+// };
 
-    await firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .delete();
+// export const deleteUser = async (navigation) => {
+//     const user = firebase.auth().currentUser;
 
-    user.delete()
-        .then(function () {
-            logout(navigation);
-        })
-        .catch(function (error) {
-            Alert.alert(error.message);
-        });
-};
+//     await firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .delete();
 
-export const currentUserEmail = () => {
-    return auth.currentUser.email;
-};
+//     user.delete()
+//         .then(function () {
+//             logout(navigation);
+//         })
+//         .catch(function (error) {
+//             Alert.alert(error.message);
+//         });
+// };
 
-export const getAllTasks = async (sortBy, sortOrder) => {
-    const dbRef = firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .collection("tasks");
+// export const currentUserEmail = () => {
+//     return auth.currentUser.email;
+// };
 
-    let list = [];
+// export const getAllTasks = async (sortBy, sortOrder) => {
+//     const dbRef = firebase
+//         .firestore()
+//         .collection("users")
+//         .doc(firebase.auth().currentUser.uid)
+//         .collection("tasks");
 
-    const snapshot = await dbRef.orderBy(sortBy, sortOrder).get();
-    snapshot.forEach((doc) => {
-        list.push({
-            id: doc.id,
-            ...doc.data(),
-        });
-    });
-    return list;
-};
+//     let list = [];
+
+//     const snapshot = await dbRef.orderBy(sortBy, sortOrder).get();
+//     snapshot.forEach((doc) => {
+//         list.push({
+//             id: doc.id,
+//             ...doc.data(),
+//         });
+//     });
+//     return list;
+// };

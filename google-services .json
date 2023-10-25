@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481992599679",
+    "project_id": "task-managar-app-e7634",
+    "storage_bucket": "task-managar-app-e7634.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481992599679:android:28a86b1e428fb1e4e2374a",
+        "android_client_info": {
+          "package_name": "com.rajarsheechatterjee.shigoto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArEQopYPrPO1aj-8esDUmc-G35_Oz0KFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

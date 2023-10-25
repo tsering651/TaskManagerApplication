@@ -6,9 +6,9 @@ import { ThemeProvider } from "./src/navigation/ThemeProvider";
 const App = () => {
     return (
         <ThemeProvider>
-            <AuthUserProvider>
+            
                 <Navigator />
-            </AuthUserProvider>
+           
         </ThemeProvider>
     );
 };
